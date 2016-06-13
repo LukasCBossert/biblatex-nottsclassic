@@ -11,29 +11,56 @@
 \ProvidesFile{nottsclassic.bbx}%
                [2016/06/09 v0.1  nottsclassic]
 \RequireBibliographyStyle{authoryear}
+
 \AtBeginDocument{%
 		\urlstyle{sf}%
+	\setquotestyle{british} %! mandatory: \usepackage{csquotes} in preamble!
 }
 \ExecuteBibliographyOptions{%
 	pagetracker=true,%
-	citecounter=true,%
+%	citecounter=true,%
 	giveninits=true,%
-	sortlocale=auto,%
+%	sortlocale=auto,%
 	%language=auto,%
 	%autolang=other,%
 	mergedate=true,%
 	labeldate=true,%
 	bibencoding=utf8,%
-	dateabbrev=false, %
+%	dateabbrev=false, %
 	sorting=nyt,%
-	maxnames=2,% 
-	minnames=1,%
-	maxitems=1,%
-	maxbibnames=999,%
+	isbn=false,
+%	maxnames=2,% 
+%	minnames=1,%
+%	maxitems=1,%
+%	maxbibnames=999,%
 }
 %-----------------------
+\newcommand*{\volpagedelim}{\addcolon\addspace}
+\renewcommand*{\subtitlepunct}{\addcolon\addspace}
+\renewcommand*{\newunitpunct}{\addcomma\space}
+
+%\setlength\bibhang{2.4em}%% two dashes and space
+%\renewcommand*\bibnamedash{\textemdash\textemdash\space}
+\renewcommand*\bibnamedash{\rule[0.48ex]{3em}{0.14ex}\space}
+
+%------------------------
 \DeclareFieldFormat{postnote}{#1}
 \DeclareFieldFormat{multipostnote}{#1}
+\DeclareFieldFormat{volcitepages}{#1}
+\DeclareFieldFormat{pages}{#1}
+\DeclareFieldFormat*{title}{%
+			\ifthenelse{% 		
+					\ifentrytype{article}%
+					\OR%
+					\ifentrytype{review}
+					\OR%
+					\ifentrytype{incollection}}%
+						{\mkbibquote{#1}}%
+					{\mkbibemph{#1}}}
+\DeclareFieldFormat{booktitle}{\mkbibemph{#1}}
+%-------------------------
+\DeclareNameAlias{sortname}{family-given}% legacy alias
+%-------------------------
 
 \defbibenvironment{bibliography}
   {\list
@@ -58,6 +85,14 @@
   {\endlist}
   {\item}
 
+\newbibmacro*{volume+number+eid}{%
+\printfield{volume}%
+\setunit*{\addcomma\addspace}%
+\printfield{number}%
+\setunit{\addcomma\space}%
+\printfield{eid}}
+
+
 \renewbibmacro{in:}{%
 	\ifthenelse{% 		
 		\ifentrytype{article}%
@@ -67,6 +102,7 @@
 	{\printtext{in}}
 	%\bibstring{in}\intitlepunct}}%
 }
+
 \renewbibmacro*{editorstrg}{%
   \ifthenelse{\value{editor}>1\OR\ifandothers{editor}}
     {\bibstring{editors}}
@@ -77,12 +113,51 @@
     {}
     {%\usebibmacro{byeditor+othersstrg}%
      \setunit{\addspace}%
-     \printnames[editor]{editor}%
-     \setunit{\addspace}%
-     \usebibmacro{editorstrg}%
+     \printtext[parens]{\printnames[editor]{editor}%
+     \setunit{\addspace\addcomma\addspace}%
+     \usebibmacro{editorstrg}}%
      \clearname{editor}%
      \newunit}%
   \usebibmacro{byeditorx}%
   \usebibmacro{bytranslator+others}}
+
+
+\DeclareBibliographyDriver{article}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
+\usebibmacro{author/translator+others}%
+\setunit{\labelnamepunct}\newblock
+\usebibmacro{title}%
+\newunit
+\printlist{language}%
+\newunit\newblock
+\usebibmacro{byauthor}%
+\newunit\newblock
+\usebibmacro{bytranslator+others}%
+\newunit\newblock
+\printfield{version}%
+\newunit\newblock
+\usebibmacro{in:}%
+\usebibmacro{journal+issuetitle}%
+\newunit
+\usebibmacro{byeditor+others}%
+\volpagedelim%
+\usebibmacro{note+pages}%
+\newunit\newblock
+\iftoggle{bbx:isbn}
+{\printfield{issn}}
+{}%
+\newunit\newblock
+\usebibmacro{doi+eprint+url}%
+\newunit\newblock
+\usebibmacro{addendum+pubstate}%
+\setunit{\bibpagerefpunct}\newblock
+\usebibmacro{pageref}%
+\newunit\newblock
+\iftoggle{bbx:related}
+{\usebibmacro{related:init}%
+\usebibmacro{related}}
+{}%
+\usebibmacro{finentry}}
 
 \endinput
