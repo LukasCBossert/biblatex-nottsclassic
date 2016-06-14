@@ -25,7 +25,7 @@
 %-----------------------
 
 \renewcommand*{\iffinalcitedelim}{\iflastcitekey}
-
+\renewcommand{\postnotedelim}{\addspace}
 \newbool{cbx:parens}
 
 \newbibmacro*{cite}{%
@@ -55,7 +55,7 @@
 \ifnumequal{\value{citecount}}{1}
 {\usebibmacro{prenote}}
 {}%
-\usebibmacro{cite:labelyear+extrayear}}
+\usebibmacro{textcite:labelyear+extrayear}}
 {\usebibmacro{cite:shorthand}}}
 {\printnames{labelname}%
 \setunit{%
@@ -78,8 +78,15 @@
 \iffieldundef{labelyear}
 {}
 {\printtext[bibhyperref]{%
-\printfield{labelyear}%
-\printfield{extrayear}}}}
+\printfield[parens]{labelyear}%
+\printfield[parens]{extrayear}}}}
+
+%%%\newbibmacro*{textcite:labelyear+extrayear}{%
+%%%\iffieldundef{labelyear}
+%%%{}
+%%%{\printtext[bibhyperref]{%
+%%%\printfield{labelyear}%
+%%%\printfield{extrayear}}}}
 
 \newbibmacro*{textcite:postnote}{%
 \iffieldundef{postnote}
@@ -140,18 +147,24 @@
 {\multicitedelim}
 {\usebibmacro{postnote}}
 
+
 \DeclareCiteCommand{\textcite}
-{\boolfalse{cbx:parens}}
+{\usebibmacro{prenote}}
 {\usebibmacro{citeindex}%
-\iffirstcitekey
-{\setcounter{textcitetotal}{1}}
-{\stepcounter{textcitetotal}%
-\textcitedelim}%
-\usebibmacro{textcite}}
-{\ifbool{cbx:parens}
-{\bibcloseparen\global\boolfalse{cbx:parens}}
-{}}
-{\usebibmacro{textcite:postnote}}
+\usebibmacro{cite}}
+{\multicitedelim}
+{\usebibmacro{postnote}}
+%{\boolfalse{cbx:parens}}
+%{\usebibmacro{citeindex}%
+%\iffirstcitekey
+%{\setcounter{textcitetotal}{1}}
+%{\stepcounter{textcitetotal}%
+%\textcitedelim}%
+%\usebibmacro{textcite}}
+%{\ifbool{cbx:parens}
+%{\bibcloseparen\global\boolfalse{cbx:parens}}
+%{}}
+%{\usebibmacro{textcite:postnote}}
 
 \DeclareMultiCiteCommand{\textcites}{\textcite}{}
 

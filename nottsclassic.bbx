@@ -29,10 +29,10 @@
 %	dateabbrev=false, %
 	sorting=nyt,%
 	isbn=false,
-%	maxnames=2,% 
+	maxnames=2,% 
 %	minnames=1,%
-%	maxitems=1,%
-%	maxbibnames=999,%
+	maxitems=1,%
+	maxbibnames=999,%
 }
 %-----------------------
 \newcommand*{\volpagedelim}{\addcolon\addspace}
@@ -42,6 +42,10 @@
 %\setlength\bibhang{2.4em}%% two dashes and space
 %\renewcommand*\bibnamedash{\textemdash\textemdash\space}
 \renewcommand*\bibnamedash{\rule[0.48ex]{3em}{0.14ex}\space}
+%------------------------
+\DeclareRedundantLanguages{english,american}{english,american,british,%
+                       						canadian,australian,newzealand,USenglish,UKenglish}
+\DeclareLanguageMapping{english}{nottsclassic-english}
 
 %------------------------
 \DeclareFieldFormat{postnote}{#1}
@@ -85,14 +89,14 @@
   {\endlist}
   {\item}
 
-\newbibmacro*{volume+number+eid}{%
+\renewbibmacro*{volume+number+eid}{%
 \printfield{volume}%
 \setunit*{\addcomma\addspace}%
 \printfield{number}%
 \setunit{\addcomma\space}%
 \printfield{eid}}
 
-
+%-----------------------  
 \renewbibmacro{in:}{%
 	\ifthenelse{% 		
 		\ifentrytype{article}%
@@ -103,11 +107,16 @@
 	%\bibstring{in}\intitlepunct}}%
 }
 
+%-----------------------  
+\newbibmacro*{related:reviewof}[1]{%
+		\usebibmacro*{related:default}{#1}%
+}
+%-----------------------  
 \renewbibmacro*{editorstrg}{%
   \ifthenelse{\value{editor}>1\OR\ifandothers{editor}}
     {\bibstring{editors}}
     {\bibstring{editor}}}
-    
+%-----------------------      
 \renewbibmacro*{byeditor+others}{%
   \ifnameundef{editor}
     {}
@@ -121,7 +130,7 @@
   \usebibmacro{byeditorx}%
   \usebibmacro{bytranslator+others}}
 
-
+%-----------------------  
 \DeclareBibliographyDriver{article}{%
 \usebibmacro{bibindex}%
 \usebibmacro{begentry}%
@@ -159,5 +168,26 @@
 \usebibmacro{related}}
 {}%
 \usebibmacro{finentry}}
-
+%-----------------------
+\DeclareBibliographyDriver{review}{%
+  	\usebibmacro{bibindex}%
+  	\usebibmacro{begentry}%
+  	\usebibmacro{author/editor}%
+  		\setunit*{\labelnamepunct}%
+  		\newblock%
+    \iffieldundef{title}%
+    		{}%
+    		{\usebibmacro{title}}%
+   		\newunit\newblock%
+	\usebibmacro{related:init}%
+	\usebibmacro{related}%			
+ 		\newunit\newblock%
+\usebibmacro{journal+issuetitle}%
+  		\newunit\newblock%
+\usebibmacro{note+pages}%
+  	 	\newunit\newblock%
+  	\usebibmacro{doi+eprint+url}%
+  		\newunit\newblock%
+ 	\usebibmacro{finentry}%
+}
 \endinput
