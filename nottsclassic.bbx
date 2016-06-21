@@ -65,7 +65,14 @@
 %-------------------------
 \DeclareNameAlias{sortname}{family-given}% legacy alias
 %-------------------------
-
+\DeclareBibliographyCategory{important}
+\AtEveryBibitem{\ifcategory{important}{
+\reversemarginpar
+\marginnote{\color{red}{☞}}
+%\bfseries
+}
+{}}
+%-------------------------
 \defbibenvironment{bibliography}
   {\list
      {}
