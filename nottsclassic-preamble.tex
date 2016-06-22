@@ -3,10 +3,7 @@
 
 \usepackage[					% use  for bibliography
 	backend=biber,
-	style=archaeologie,
-	lstpublishers,
-	lstlocations,
-	lstabbrv,
+	style=nottsclassic,
 ]{biblatex}
 \renewcommand\bibfont{\normalfont
 \footnotesize}
@@ -32,7 +29,7 @@ draft=false,
 ]{scrlayer-scrpage} 
 \pagestyle{scrheadings}
 \clearscrheadfoot
-	\ihead{\normalfont\footnotesize \texttt{bib}\LaTeX-style \texttt{archaeologie 2.0} (c) by Lukas C. Bossert | Johannes Friedl}%
+	\ihead{\normalfont\footnotesize \texttt{bib}\LaTeX-style \texttt{nottsclassic 0.1} (c) by Lukas C. Bossert | William Leveritt}%
 \rofoot{\large\footnotesize  \textbf{\sffamily \thepage}}
 
 \usepackage[%
@@ -59,7 +56,7 @@ draft=false,
 %\EnableCrossrefs
 %\CodelineIndex
 %\RecordChanges
-\addbibresource{archaeologie.bib}
+\addbibresource{nottsclassic.bib}
 %\addbibresource{archaeologie-ancient.bib}
 %\addbibresource{antike-corpora.bib} %Version 2.0
 \usepackage{caption}
@@ -83,56 +80,7 @@ draft=false,
 \usepackage[tikz]{bclogo}
 \usepackage{tikz}
 \usetikzlibrary{calc}
-%\NewEnviron{bibbsp}[1]
-%  {\par\medskip\noindent\footnotesize
-%  \begin{tikzpicture}
-%    \node[inner sep=0pt] (box) {\parbox[t]{\textwidth}{%
-%      \begin{minipage}{.15\textwidth}
-%      \hspace{.5em}\scriptsize \textbf{\cref{#1}}\hfill
-%      \end{minipage}%
-%      \begin{minipage}{.83\textwidth}
-%      \BODY
-%      \end{minipage}\hfill}%
-%    };
-%    \draw[codeblue,line width=2pt] 
-%      ( $ (box.north east) + (-5pt,3pt) $ ) -- ( $ (box.north east) + (0,3pt) $ ) -- ( $ (box.south east) + (0,-3pt) $ ) -- + (-5pt,0);
-%    \draw[codeblue,line width=2pt] 
-%      ( $ (box.north west) + (5pt,3pt) $ ) -- ( $ (box.north west) + (0,3pt) $ ) -- ( $ (box.south west) + (0,-3pt) $ ) -- + (5pt,0);
-%  \end{tikzpicture}\par\medskip%
-%}
-%-----
 
-\newcommand{\printbib}[2][4em]{%
-\begingroup
-\begin{bibbsp}{#2}
-\footnotesize
-\begin{refsection}
-\setlength{\labwidthsameline}{#1} 
-\nocite{#2}
-\printbibliography[heading=none]
-\end{refsection}
-\end{bibbsp}
-\endgroup
-}
-
-\newcommand{\printbiball}[2][4em]{%
-\begingroup
-\setlength{\labwidthsameline}{#1} 
-\begin{bibbsp}{#2}
-\footnotesize%
-\begin{itemize}%[\bfseries]
-\begin{refsection}%
-\nocite{#2}%
-\item[English:]{\printbibliography[heading=none]}
-\item[German:]\foreignlanguage{ngerman}{\printbibliography[heading=none]}
-\item[Italian:]\foreignlanguage{italian}{\printbibliography[heading=none]}
-\item[French:]\foreignlanguage{french}{\printbibliography[heading=none]}
-\item[Spanish:]\foreignlanguage{spanish}{\printbibliography[heading=none]}
-\end{refsection}
-\end{itemize}%
-\end{bibbsp}
-\endgroup
-}
 
  \DeclareCaptionFormat{listing}{#1#2#3}
  \captionsetup[lstlisting]{format=listing,
@@ -174,56 +122,21 @@ draft=false,
 \renewcommand{\lstlistingname}{Example}%rename caption
 \renewcommand{\lstlistlistingname}{List of examples}%rename caption
 
- \lstdefinestyle{code}{%
-	language=[LaTeX]TeX,
-    backgroundcolor=\color{white},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{codeblue},
-    numberstyle=\small\color{codegray},
-    stringstyle=\color{codepurple},
-	escapeinside={*@}{@*},
-    texcsstyle=*\color{codeblue},
-    morekeywords={},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    %numbers=left,                    
-    stepnumber=1,
-    numbersep=5pt,            
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2,
-      morekeywords={cites, parencites, parencite, textcite, textcites, citeauthor, citetitle,
-    						@String,
-    						@Article, @Book,@Collection,@Proceedings,@Reference,@Thesis,
-    						@Inproceedings,@Talk,@Review,@Inreference,@Incollection,
-    						},
-    literate=
-            *{\{}{{{\color{codeblue}{\{}}}}{1}
-            {\}}{{{\color{codeblue}{\}}}}}{1}
-            {[}{{{\color{codeblue}{[}}}}{1}
-            {]}{{{\color{codeblue}{]}}}}{1},
-}
 %%% Always I forget this so I created some aliases
 \def\ContinueLineNumber{\lstset{firstnumber=last}}
 \def\StartLineAt#1{\lstset{firstnumber=#1}}
 \let\numberLineAt\StartLineAt
 
-\lstset{style=code}
-\lstMakeShortInline[style=code]{|}
+\lstset{style=bibentry}
+%\lstMakeShortInline[style=bibentry]{|}
 
 
 \usepackage{hyperxmp}
 %\usepackage{hyperref}
 \hypersetup{					% setup the hyperref-package options
-	pdftitle={bib\LaTeX-archaeologie},	% 	- title (PDF meta)
-	pdfsubject={This citation-style covers the citation and bibliography rules of the German Archaeological Institute. 
-Various options are available to change and adjust the outcome according to one's own preferences. 
-The style is compatible with the English, German, Italian, Spanish and French languages, since all bibstrings used are defined in each language.},% 	- subject (PDF meta)
-	pdfauthor={Lukas C. Bossert, Johannes Friedl},	% 	- author (PDF meta)
+	pdftitle={bib\LaTeX-nottsclassic},	% 	- title (PDF meta)
+	pdfsubject={},% 	- subject (PDF meta)
+	pdfauthor={Lukas C. Bossert, William Leveritt},	% 	- author (PDF meta)
 	pdfauthortitle={},
 	pdfcopyright={This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3
@@ -233,7 +146,7 @@ of this license or (at your option) any later version.},
 	pdfdate={\the\year-\the\month-\the\day}
 	pdflang={de},
 	pdfcaptionwriter={Lukas C. Bossert},
-	pdfkeywords={biblatex, archaeology, humanities},
+	pdfkeywords={biblatex, humanities, humanities},
 %	pdfproducer={XeLaTeX},
 	pdflicenseurl={http://www.latex-project.org/lppl.txt},
 	plainpages=false,			% 	- 

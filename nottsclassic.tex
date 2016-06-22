@@ -16,37 +16,19 @@
 english
 ]{ltxdoc}
 \input{nottsclassic-preamble.tex}
-\NewEnviron{bibbsp}[1]
-  {\par\medskip\noindent\footnotesize
-  \begin{tikzpicture}
-    \node[inner sep=0pt] (box) {\parbox[t]{\textwidth}{%
-      \begin{minipage}{.07\textwidth}
-      \hspace{.5em}\scriptsize \textbf{\Cref{#1}}\hfill
-      \end{minipage}%
-      \begin{minipage}{.9\textwidth}
-      \BODY
-      \end{minipage}\hfill}%
-    };
-    \draw[codeblue,line width=2pt] 
-      ( $ (box.north east) + (-5pt,3pt) $ ) -- ( $ (box.north east) + (0,3pt) $ ) -- ( $ (box.south east) + (0,-3pt) $ ) -- + (-5pt,0);
-    \draw[codeblue,line width=2pt] 
-      ( $ (box.north west) + (5pt,3pt) $ ) -- ( $ (box.north west) + (0,3pt) $ ) -- ( $ (box.south west) + (0,-3pt) $ ) -- + (5pt,0);
-  \end{tikzpicture}\par\medskip%
-}
-
 \begin{document}
-\title{\texttt{nottsclassic} -- \\\texttt{bib\LaTeX}-style of the Classics department \footnote{The development of the code is done at \url{https://github.com/LukasCBossert/biblatex-nottsclassic}.}}
+\title{\texttt{nottsclassic} -- \\\texttt{bib\LaTeX}-style of the Classics Department, Nottingham (GB)\footnote{The development of the code is done at \url{https://github.com/LukasCBossert/biblatex-nottsclassic}.}}
 \author{Lukas C. Bossert\thanks{\href{mailto:lukas@digitales-altertum.de}{lukas@digitales-altertum.de}} \and William Leveritt}
 \date{Version: 0.1 (2016-06-09)}
  \maketitle
 \begin{abstract}
-
+Bibliographical style called \emph{nottsclassic} which works according to the guideline of the Classics Department of the University of Nottingham (GB).
  \end{abstract}
 
 
-\begin{multicols}{2}
-\footnotesize\parskip=0mm \tableofcontents
-\end{multicols}
+%\begin{multicols}{2}
+%\footnotesize\parskip=0mm \tableofcontents
+%\end{multicols}
 
 
 \section{Usage}
@@ -55,42 +37,23 @@ english
 \begin{lstlisting}
 \usepackage[style=nottsclassic,%
 					*@\meta{further options}@*]{biblatex}
-\bibliography*@\marg{|bib|-file}@*
+\bibliography*@\marg{|bib|-file.|bib|}@*
 \end{lstlisting}
 
 
 At the end of your document you can write the command |\printbibliography| to print 
 the bibliography. 
-Since |nottsclassic| supports different citations of various texts like from ancient authors and from modern scholars we suggest to have them listed in separated bibliographies. 
 Further information are found below   (\cref{bibliographie}).
 
 \section{Overview}\label{overview}
-Following there is a quick overview of possible options of the style |nottsclassic|. 
-Contrary to the alphabetically ordered description later (\cref{options-description}) they here are listed by topic.
-Furthermore you can -- at your own risk -- also use the conventional |bib|\LaTeX-options which are related of indent, etc. 
-For that please see the excellent documentation of  |bib|\LaTeX.
 
-\subsection{Preamble options}\label{preamble_options}
-
-\subsubsection{Manner of citing}
-
-\DescribeMacro{noabbrv}
-
- 
-\subsubsection{Global bibliography settings}
-
-
-\subsection{Entry Options}
-
-
-\subsection{Cite commands}\label{cite-commands}
 \DescribeMacro{\cite}%
 As always citing is done with \cs{cite}:
 \begin{lstlisting}
 \cite*@\oarg{prenote}\oarg{postnote}\marg{bibtex-key}%@*
 \end{lstlisting}
 
-\meta{prenote} sets a short preliminary note (e.\,g. \enquote{Vgl.}) and \meta{postnote} is usually used for page numbers.
+\meta{prenote} sets a short preliminary note (e.\,g. \enquote{e.\,g.}) and \meta{postnote} is usually used for page numbers.
 If only one optional argument is used then it is \oarg{postnote}.
 \begin{lstlisting}
 \cite*@\oarg{postnote}\marg{bibtex-key}%@*
@@ -113,7 +76,7 @@ Therefore we implemented the command \cs{parencite}:
 \end{lstlisting} 
 This cite command takes care of the correct corresponding parentheses and brackets.
 Especially in |@Inreference| citations the parentheses are changing to (square) brackets.
-The example shown in \cref{faq:inreference} makes it clear.
+
 
 \DescribeMacro{\parencites}
 Of course there is also the possibility to cite several authors/works in parentheses.
@@ -124,21 +87,6 @@ This is done with \cs{parencites}:
  																			*@\oarg{prenote}\oarg{postnote}\marg{bibtex-key}\ldots@*
 \end{lstlisting}
  
-\DescribeMacro{\textcite}
-Beside the listed \cs{cite} commands above there is a third way of citing:
-\cs{textcite} is useful if the author should be mentioned in the text and
-the remaining components like year and page will immediately follow in parentheses. 
-\begin{lstlisting}
-\textcite*@\oarg{postnote}\marg{bibtex-key}%@*
-\end{lstlisting} 
-
-\DescribeMacro{\textcites}
-And again there is also a \cs{textcites} in case of several authors: 
-  \begin{lstlisting}
-\textcites(pre-prenote)(post-postnote)*@\oarg{prenote}\oarg{postnote}\marg{bibtex-key}@*%
- 																			*@\oarg{prenote}\oarg{postnote}\marg{bibtex-key}@*%
- 																			*@\oarg{prenote}\oarg{postnote}\marg{bibtex-key}\ldots@*
-\end{lstlisting}
 
 \DescribeMacro{\citeauthor}\DescribeMacro{\citetitle}\label{citeauthor}%
 Furthermore and additionally to the ›normal‹ \cs{cite}-commands one can also cite only the author or the work title in the text and in the footnotes.
@@ -149,22 +97,10 @@ Furthermore and additionally to the ›normal‹ \cs{cite}-commands one can also
 \begin{lstlisting}
 \citetitle*@\oarg{prenote}\oarg{postnote}\marg{bibtex-key}%@*
 \end{lstlisting} 
-For further information cf. \cref{fullnames}.
 
 
  \section{Bibliography}\label{bibliographie}
  \DescribeMacro{\printbibliography}
-As long as you don’t use the option\DescribeMacro{seenote} |seenote|---for 
-which a final bibliography is not needed---you will need to print you cited entries in a bibliography 
-at a certain place in your document.
-It can be useful to differentiate your bibliography and divide it e.\,g. into a bibliography 
-with ancient authors and one with modern scholars.
-Additionally you can have a bibliography with the |shorthand| shortcuts or all abbreviated journal titles, etc.
-
-How the different bibliographies can be set up is explained now:
-Let’s assume you want to have a bibliography with the ancient authors and one with modern scholars.
-Since the entries of the ancient authors have the field |keyword={ancient}| (or should have it) this is done quite easy.
-
 But first we define the heading of the whole  bibliography:
 \begin{lstlisting}
 \printbibheading[%
@@ -176,44 +112,21 @@ You can give any title you would like to give (|title = |\marg{any title}).
 
 The next step is to set up the bibliography for the ancient authors.
 
+
+Finally the bibliography:
 \begin{lstlisting}
 \printbibliography[%
-							keyword=ancient,%
-							heading=subbibliography,
-							%heading=subbibnumbered,% if you want it numbered
-							title={Ancient authors and works}]
-\end{lstlisting}
-We tell the bibliography just to contain the entries which have have |ancient| in the field |keywords| (line 2).
-
-
-Finally the bibliography for modern scholars:
-\begin{lstlisting}
-\printbibliography[%
-							notkeyword=ancient,%
-							notkeyword=corpus,%
 							heading=subbibliography,
 							%heading=subbibnumbered,% if you want it numbered
 							title={Secondary literature}]
 \end{lstlisting}
-This time we exclude all entries which have |ancient| or |corpus| in the field |keywords|. 
-That’s it.
-(Don't be surprised about the line |notkeyword=corpus| which excludes entries with special |shorthand| labels, a further bibliography part with all the |shorthands| is described below.).
 
-
-\begin{refsection}
 \nocite{*}
-Now have a look how it looks like with all the entries we explained above.
 \begin{bsp}
 \renewcommand\bibfont{\normalfont\footnotesize}
 \printbibheading[%
 							heading=bibliography,%
 							title={Bibliography}] %heading for bibliography
-
-\printbibliography[%
-							keyword=ancient,%
-							heading=subbibliography,
-							title={Ancient authors and works}]
-
 \printbibliography[%
 							notkeyword=ancient,%
 							notkeyword=corpus,%
@@ -221,59 +134,305 @@ Now have a look how it looks like with all the entries we explained above.
 							title={Secondary literature}]
 \end{bsp}
 
-You can create as many bibliographies as you wish each with an other keyword if you like.
-Or you can make a bibliography with all the |shorthands| used in your text---for that we use |keyword= {corpus}| (line 2):
 \begin{lstlisting}
-\printbibliography[%
-						keyword=corpus,%
-						heading=subbibliography,
-					 	title={Abbreviation and corpora}]
+
+@Book{Amedick1991,
+  author    = {Amedick, Rita},
+  title     = {Die Sarkophage mit Darstellungen aus dem Menschenleben},
+  subtitle  = {Vita Privata},
+  publisher = {Berlin},
+  year      = {1991},
+  maintitle = {Die antiken Sarkophagreliefs},
+  volume    = {1.4},
+}
+
+@Article{Bartman1993,
+  author  = {Elizabeth Bartman},
+  title   = {Carving the Badminton Sarcophagus},
+  volume  = {28},
+  pages   = {57-75},
+  year    = {1993},
+  journal = {MMJ},
+}
+
+@Book{Bielfeldt2005,
+  author    = {Bielfeldt, Ruth},
+  title     = {Orestes auf römischen Sarkophagen},
+  publisher = {Munich},
+  year      = {2005},
+}
+
+@Article{Brilliant1967,
+  author  = {Brilliant, R.},
+  title   = {The Arch of Septimius Severus in the Roman Forum},
+  volume  = {29},
+  pages   = {5-271},
+  year    = {1967},
+  journal = {MAAR, Supplement},
+}
+
+@Article{Chicoteau1997,
+  author  = {Chicoteau, Marcel},
+  title   = {The \enquote{Orphic} Tablets Depicted in a Roman Catacomb (c. 250 AD?)},
+  volume  = {119},
+  pages   = {81-3},
+  year    = {1997},
+  journal = {ZPE},
+}
+
+@Article{Dietrich1958,
+  author  = {Dietrich, B. C.},
+  title   = {Dionysus Liknites},
+  volume  = {8},
+  pages   = {244-8},
+  year    = {1958},
+  journal = {CQ},
+}
+
+@Article{Ewald2003,
+  author   = {Ewald, Björn C.},
+  title    = {Sarcophagi and Senators},
+  subtitle = {The Social History of Roman Funerary Art and its Limits},
+  volume   = {16},
+  pages    = {561-71},
+  year     = {2003},
+  journal  = {JRA},
+}
+
+@Book{Flower1996,
+  author    = {Flower,Harriet I.},
+  title     = {Ancestor Masks and Aristocratic Power in Roman Culture},
+  publisher = {Oxford},
+  year      = {1996},
+}
+
+@Book{Hadrill1994,
+  author    = {Wallace-Hadrill, Andrew},
+  title     = {Houses and Society in Pompeii and Herculaneum},
+  publisher = {Princeton},
+  year      = {1994},
+}
+
+@Article{Hickson1991,
+  author   = {Hickson, Frances V.},
+  title    = {Augustus \emph{triumphator}},
+  subtitle = {Manipulation of the Triumphal Theme in the Political Program of Augustus},
+  volume   = {50},
+  pages    = {124--38},
+  year     = {1991},
+  journal  = {Latomus},
+  number   = {1},
+}
+
+@Incollection{Houghton2011,
+  author       = {Houghton, Luke B. T.},
+  title        = {Death Ritual and Burial Practice in the Latin Love Elegists},
+  pages        = {61-77},
+  editor       = {Hope, V. M. and Huskinson, J.},
+  booktitle    = {Memory and Mourning},
+  booksubtitle = {Studies on Roman Death},
+  publisher    = {Oxford},
+  year         = {2011},
+}
+
+@Incollection{Keuren2010,
+  author       = {van Keuren, F. and Attanasio, D. and Herrman, J. J., Jr. and Herz, N. and Gromet, L. P.},
+  title        = {Multimethod Analyses of Roman Sarcophagi at the Museo Nazionale Romano, Rome},
+  pages        = {149-88},
+  editor       = {Elsner, J. and Huskinson, J.},
+  booktitle    = {Life, Death and Representation},
+  booksubtitle = {Some New Work on Roman Sarcophagi},
+  publisher    = {Berlin},
+  year         = {2010},
+}
+
+@Article{Kraemer1989,
+  author  = {Kraemer, Ross S.},
+  title   = {On the Meaning of the Term \enquote{Jew} in Greco-Roman Inscriptions},
+  volume  = {82},
+  pages   = {35-53},
+  year    = {1989},
+  journal = {HThR},
+  number  = {1},
+}
+
+@Article{Leon1949,
+  author  = {Leon, Harry J.},
+  title   = {Symbolic Representations in the Jewish Catacombs of Rome},
+  volume  = {69},
+  pages   = {87-90},
+  year    = {1949},
+  journal = {JAOS},
+  number  = {2},
+}
+
+@Incollection{Lorenz2010,
+  author       = {Lorenz, Katharina G.},
+  title        = {Image in Distress?},
+  subtitle     = {The Death of Meleager on Roman Sarcophagi},
+  pages        = {309-36},
+  editor       = {Elsner, J. and Huskinson, J.},
+  booktitle    = {Life, Death and Representation},
+  booksubtitle = {Some New Work on Roman Sarcophagi},
+  publisher    = {Berlin},
+  year         = {2010},
+}
+
+@Incollection{Lorenz2014,
+  author    = {Lorenz, Katharina G.},
+  title     = {The Casa del Menandro in Pompeii},
+  subtitle  = {Rhetoric and the Topology of Roman Wall Painting},
+  pages     = {183-210},
+  editor    = {Elsner, J. and Meyer, M.},
+  booktitle = {Art and Rhetoric in Roman Culture},
+  publisher = {Cambridge},
+  year      = {2014},
+}
+
+@Book{Maxfield1981,
+  author    = {Maxfield, Valerie A.},
+  title     = {The Military Decorations of the Roman Army},
+  publisher = {Berkeley, CA},
+  year      = {1981},
+}
+
+@Article{Neverov1979,
+  author  = {Neverov, Oleg},
+  title   = {Gems in the Collection of Rubens},
+  volume  = {121},
+  pages   = {424, 426-432},
+  year    = {1979},
+  journal = {The Burlington Magazine},
+  number  = {916},
+}
+
+@Book{Parlasca1970,
+  author    = {Klaus Parlasca},
+  title     = {Die römischen Mosaiken in Deutschland},
+  publisher = {Berlin},
+  year      = {1970},
+}
+
+@Incollection{Perry2015,
+  author    = {Perry,Ellen E.},
+  title     = {Human Interaction with Statues},
+  pages     = {653-66.},
+  editor    = {Elise A. Friedland and Melanie Grunow Sobocinski and Elaine K. Gazda},
+  booktitle = {The Oxford Handbook of Roman Sculpture},
+  publisher = {Oxford},
+  year      = {2015},
+}
+
+@Book{Ritter1995,
+  author    = {Stefan Ritter},
+  title     = {Hercules in der römischen Kunst von den Anfängen bis Augustus},
+  publisher = {Heidelberg},
+  year      = {1995},
+}
+
+@Article{Rupke2006,
+  author  = {Rüpke, Jörg},
+  title   = {Triumphator and Ancestor Rituals between Symbolic Anthropology and Magic},
+  volume  = {53},
+  pages   = {251-89},
+  year    = {2006},
+  journal = {Numen},
+  number  = {3},
+}
+
+@Incollection{Shaya2015,
+  author    = {Josephine Shaya},
+  title     = {Ancient Analogs of Museums},
+  pages     = {622-37},
+  editor    = {Elise A. Friedland and Melanie Grunow Sobocinski and Elaine K. Gazda},
+  booktitle = {The Oxford Handbook of Roman Sculpture},
+  publisher = {Oxford},
+  year      = {2015},
+}
+
+@Article{Sorabella2001,
+  author  = {Sorabella, Jean},
+  title   = {A Roman Sarcophagus and its Patron},
+  volume  = {36},
+  pages   = {67-81},
+  year    = {2001},
+  journal = {MMJ},
+}
+
+@PhdThesis{Torjusson2008,
+  author   = {Stian Sundell Torjussen},
+  title    = {Metamorphoses of Myth},
+  school   = {University of Troms\o},
+  year     = {2008},
+  subtitle = {A Study of the ``Orphic'' Gold Tablets and the Derveni Papyrus},
+}
+
+@Book{Toynbee1971,
+  author    = {J. M. C. Toynbee},
+  title     = {Death and Burial in the Roman World},
+  publisher = {Ithaca},
+  year      = {1971},
+}
+
+@Book{Versnel1970,
+  author    = {H. S. Versnel},
+  title     = {Triumphus},
+  subtitle  = {An Inquiry into the Origin, Development and Meaning of the Roman Triumph},
+  publisher = {Leiden},
+  year      = {1970},
+}
+
+@Article{Warren1964,
+  author  = {Larissa {Bonfante Warren}},
+  title   = {A Latin Triumph on a Praenestine Cista},
+  volume  = {68},
+  pages   = {35-42},
+  year    = {1964},
+  journal = {AJA},
+  number  = {1},
+}
+
+@Article{Wind1950,
+  author  = {Wind, Edgar},
+  title   = {A Note on Bacchus and Ariadne},
+  volume  = {92},
+  pages   = {82, 84-85},
+  year    = {1950},
+  journal = {The Burlington Magazine},
+  number  = {564},
+}
+
+@Book{Wrede1981,
+  author    = {Henning Wrede},
+  title     = {\emph{consecratio in formam deorum}},
+  subtitle  = {Vergöttlichte Privatpersonen in der römischen Kaiserzeit},
+  publisher = {Mainz},
+  year      = {1981},
+}
+
+@Book{Zanker1990,
+  author     = {Zanker, Paul},
+  title      = {The Power of Images in the Age of Augustus},
+  publisher  = {Ann Arbor},
+  year       = {1990},
+  translator = {Shapiro, A. H.},
+}
+
+@Book{Zanker2010,
+  author     = {Zanker, Paul},
+  title      = {Roman Art},
+  publisher  = {California},
+  year       = {2010},
+  translator = {Heitmann-Gordon, H.},
+}
+
+@Book{Zanker2012,
+  author    = {Paul Zanker and Björn Christian Ewald},
+  title     = {Living with Myths},
+  subtitle  = {The Imagery of Roman Sarcophagi},
+  publisher = {Oxford},
+  year      = {2012},
+}
+
 \end{lstlisting}
-Now the bibliography only lists the used entries which have |corpus| in the field |keywords|:
-\begin{bsp}
-\printbibliography[%
-						keyword={corpus},
-          				heading=subbibliography,
-            			title={Abbreviation of corpora}]\label{bib:corpus}
-\end{bsp}
-
-Note: If you want to separate in your bibliography author-year labels from |shorthand| labels
- you should insure yourself that bibliography entries which contain a |shorthand| denomination 
-are set with a keyword either |ancient|, |corpus| or something else, to guarantee that there is 
-no bibliographical shortcut wrongly sorted in the bibliography.
-
-
-Furthermore you can have a bibliography for all the abbreviated journal titles and series to have the abbreviation and its long form.
-For journals it works like this:
-\begin{lstlisting}
-\printbiblist[%
-					heading=subbibliography,
-					title={Abbreviation of journals}]{shortjournal}
-\end{lstlisting}
-
-\begin{bsp}
-\printbiblist[%
-					heading=subbibliography,
-					title={Abbreviation of journals}]{shortjournal}
-\end{bsp}
-
-For series it is done like this:
-\begin{lstlisting}
-\printbiblist[%
-					heading=subbibliography,
-					title={Abbreviation of series}]{shortseries}
-\end{lstlisting}
-
-
-\begin{bsp}
-\printbiblist[heading=subbibliography,title={Abbreviation of series}]{shortseries}\end{bsp}
-\end{refsection}
-
-
-
-\clearpage
-\begin{multicols}{2}\footnotesize
-\lstlistoflistings
-\end{multicols}
-
 \end{document}
