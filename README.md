@@ -1,7 +1,7 @@
 bibLaTeX-__nottsclassic__    
 ======= 
 
-_2016/06/09 v0.1_
+_2016/06/30 v0.1_
 
 Copyright (c) 2016 Lukas C. Bossert | William Leveritt
 

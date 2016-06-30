@@ -9,7 +9,7 @@
 % and version 1.3 or later is part of all distributions of LaTeX
 % version 2005/12/01 or later.
 \ProvidesFile{nottsclassic.bbx}%
-               [2016/06/09 v0.1  nottsclassic]
+               [2016/06/30 v0.1  nottsclassic]
 \RequireBibliographyStyle{authoryear}
 
 \AtBeginDocument{%
@@ -18,19 +18,13 @@
 }
 \ExecuteBibliographyOptions{%
 	pagetracker=true,%
-%	citecounter=true,%
 	giveninits=true,%
-%	sortlocale=auto,%
-	%language=auto,%
-	%autolang=other,%
 	mergedate=true,%
 	labeldate=true,%
 	bibencoding=utf8,%
-%	dateabbrev=false, %
 	sorting=nyt,%
 	isbn=false,
 	maxnames=2,% 
-%	minnames=1,%
 	maxitems=1,%
 	maxbibnames=999,%
 }
@@ -38,9 +32,6 @@
 \newcommand*{\volpagedelim}{\addcolon\addspace}
 \renewcommand*{\subtitlepunct}{\addcolon\addspace}
 \renewcommand*{\newunitpunct}{\addcomma\space}
-
-%\setlength\bibhang{2.4em}%% two dashes and space
-%\renewcommand*\bibnamedash{\textemdash\textemdash\space}
 \renewcommand*\bibnamedash{\rule[0.48ex]{3em}{0.14ex}\space}
 %------------------------
 \DeclareRedundantLanguages{english,american}{english,american,british,%
